@@ -11,6 +11,10 @@ const IncorrectAnswer = db.define("IncorrectAnswer", {
     content: {
         type: DataTypes.TEXT
     },
+    question_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
 });
 
 module.exports = IncorrectAnswer;

@@ -15,7 +15,8 @@ const User = db.define("User", {
     type: DataTypes.TEXT,
     unique: {
       args: true,
-      msg: 'Email already in use!'},
+      msg: 'Email already in use!'
+    },
   },
   username: {
     type: DataTypes.TEXT,
@@ -34,14 +35,17 @@ const User = db.define("User", {
     defaultValue: "user",
   }
 });
-User.hasMany(UserToken, {
-  foreignKey: "token_id",
-});
 User.hasMany(Score, {
-  foreignKey: "score_id",
+  targetKey: "user_id",
+  foreignKey: "user_id",
 });
 User.hasMany(Question, {
-  foreignKey: "question_id",
+  targetKey: "user_id",
+  foreignKey: "user_id",
+});
+User.hasMany(UserToken, {
+  targetKey: "user_id",
+  foreignKey: "user_id",
 });
 
 module.exports = User;

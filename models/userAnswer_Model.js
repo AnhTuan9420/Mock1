@@ -1,14 +1,16 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const db = require('../config/database');
-const Score = db.define('Score', {
-    score_id: {
+const db = require("../config/database");
+
+const userAnswer = db.define('userAnswer', {
+    user_answer_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
     },
-    score: {
+    question_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
     },
     user_id: {
         type: DataTypes.INTEGER,
@@ -16,4 +18,4 @@ const Score = db.define('Score', {
     },
 });
 
-module.exports = Score;
+module.exports = userAnswer;

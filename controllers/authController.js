@@ -20,13 +20,13 @@ exports.getUser = async (req, res) => {
 exports.Register = async (req, res) => {
     // data = {
     //     'email': 'anhtuan@gmail.com',
-    //     'username': "hieuhieusas",
+    //     'username': "anhtuan",
     //     'password': 'anhtuan',
     //     'confPassword': 'anhtuan',
     //     'fullname': 'anhtuan',
     //     'phone': 99999999
     // };
-    const { username, email, password, confPassword, fullname, phone } = data;
+    const { username, email, password, confPassword, fullname, phone } = data || req.body;
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try {
@@ -39,8 +39,6 @@ exports.Register = async (req, res) => {
             return res.status(400).json({ msg: "Username has already existed !" });
         } else if (password !== confPassword) {
             return res.status(400).json({ msg: "Confirm Password Error!" });
-        // } else if (email) {
-        //     return res.status(400).json({ msg: "Email has already existed !!!" });
         } else {
             const newUser = await User.create({
                 username: username,

@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require('../config/database');
+const User = require('../models/userModel')
 
 const UserToken = db.define('UserToken', {
     token_id: {
@@ -15,7 +16,16 @@ const UserToken = db.define('UserToken', {
     data_token: {
         type: DataTypes.TEXT
     },
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
 });
+
+// User.hasMany(UserToken, {
+//     targetKey: "user_id",
+//     foreignKey: "token_id",
+// });
 
 // UserToken.associate = function (models) {
 //     UserToken.belongsTo(models.User, {

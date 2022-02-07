@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../config/database");
 const IncorrectAnswer = require("./incorrectAnswer_Model");
 const CorrectAnswer = require("./correctAnswer_Model");
+const UserAnswer = require("../models/userAnswer_Model")
 
 const Question = db.define("Question", {
   question_id: {
@@ -13,12 +14,22 @@ const Question = db.define("Question", {
   content: {
     type: DataTypes.TEXT,
   },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+});
+Question.hasMany(UserAnswer, {
+  targetKey: "question_id",
+  foreignKey: "question_id",
 });
 Question.hasMany(CorrectAnswer, {
-  foreignKey: "correct_answers_id",
+  targetKey: "question_id",
+  foreignKey: "question_id",
 });
 Question.hasMany(IncorrectAnswer, {
-  foreignKey: "incorrect_answers_id",
+  targetKey: "question_id",
+  foreignKey: "question_id",
 });
 
 module.exports = Question;
