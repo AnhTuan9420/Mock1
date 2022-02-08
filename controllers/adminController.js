@@ -9,7 +9,7 @@ exports.newQuestion = async (req, res) => {
         const question = { content: content }
         const createQuestion = await Question.create(question);
         // const saveQuestion = await createQuestion.save();
-        res.json(createQuestion);
+        console.log(createQuestion);
     } catch (error) {
         console.log(error);
     }

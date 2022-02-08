@@ -22,21 +22,21 @@ exports.refreshToken = async (req, res) => {
     try {
         const refreshToken = req.body.token;
         if (!refreshToken) return res.sendStatus(401);
-        const userToken = await UserToken.findOne({
-            where: {
-                data_token: refreshToken
-            }
-        });
+        // const userToken = await UserToken.findOne({
+        //     where: {
+        //         data_token
+        //     }
+        // });
         const user = await User.findOne({
             where: {
                 username: req.body.username
             }
         });
-        if (!userToken) return res.sendStatus(403);
+        if (!user) return res.sendStatus(403);
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if (err) return res.sendStatus(403);
             const accessToken = jwt.sign({ userId: user.id, username: user.username, email: user.email }, process.env.ACCESS_TOKEN_SECRET, {
-                expiresIn: '5m'
+                expiresIn: '1d'
             });
             res.json({ accessToken });
         });

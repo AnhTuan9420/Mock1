@@ -1,0 +1,28 @@
+POST http://localhost:8000/auth/login
+Content-type: application/json
+
+{
+    "username" : "anhtuan",
+    "password" : "anhtuan"
+}
+
+###
+GET  http://localhost:8000/auth/user
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoiYW5odHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQzMDgzOTQsImV4cCI6MTY0NDMwODQyNH0.6zRX6TOUc_csccnTsycV3k2mWNbl9iioYHdFvfx7gaU
+
+
+###
+POST http://localhost:8000/admin/newQuestion
+content-type: application/json
+
+{
+  "content": "test question 4?",
+}
+
+###
+POST   http://localhost:8000/auth/token
+content-type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoiYW5odHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQzMDg0NzMsImV4cCI6MTY0NDM5NDg3M30.65Fd6BMwCXmZD-jpkccwmuoVm184pwrogzvuVHjDo2A"
+}

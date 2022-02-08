@@ -14,7 +14,12 @@ const UserToken = db.define('UserToken', {
         defaultValue: 'refreshToken',
     },
     data_token: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        unique: {
+            args: true,
+            msg: 'refreshToken already in use!'
+        },
+
     },
     user_id: {
         type: DataTypes.INTEGER,

@@ -76,14 +76,8 @@ exports.Login = async (req, res) => {
         const refreshToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'
         });
-        // const userToken = await UserToken.findAll({})
-        // await userToken.push({ data_token: refreshToken }, {
-        //     where: {
-        //         userToken: token_id
-        //     }
-        // });
-        // console.log(userToken);
-        // return ({ accessToken, refreshToken });
+        const newToken = await UserToken.create({data_token: refreshToken, user_id: user.user_id});
+        console.log(newToken);
         res.status(200).json({ msg: "Success!", accessToken, refreshToken });
     } catch (error) {
         res.status(404).json({ msg: "Error!" });
