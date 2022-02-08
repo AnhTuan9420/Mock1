@@ -1,5 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../config/database");
+const Question = require("../models/questionsModel");
+const User = require("../models/userModel");
 
 const userAnswer = db.define('userAnswer', {
     user_answer_id: {
@@ -17,5 +19,9 @@ const userAnswer = db.define('userAnswer', {
         allowNull: false,
     },
 });
+Question.hasMany(userAnswer, {
+    targetKey: "question_id",
+    foreignKey: "question_id",
+  });
 
 module.exports = userAnswer;

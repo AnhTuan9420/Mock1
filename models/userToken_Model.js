@@ -10,8 +10,8 @@ const UserToken = db.define('UserToken', {
         primaryKey: true,
     },
     type: {
-        type: DataTypes.ENUM(['refreshToken', 'accessToken']),
-        defaultValue: 'accessToken',
+        type: DataTypes.ENUM(['refreshToken', 'expired']),
+        defaultValue: 'refreshToken',
     },
     data_token: {
         type: DataTypes.TEXT
@@ -21,11 +21,6 @@ const UserToken = db.define('UserToken', {
         allowNull: false,
     },
 });
-
-// User.hasMany(UserToken, {
-//     targetKey: "user_id",
-//     foreignKey: "token_id",
-// });
 
 // UserToken.associate = function (models) {
 //     UserToken.belongsTo(models.User, {

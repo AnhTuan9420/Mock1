@@ -13,15 +13,15 @@ const Question = db.define("Question", {
   },
   content: {
     type: DataTypes.TEXT,
+    unique: {
+      args: true,
+      msg: 'Question already in use!'
+    },
   },
-  user_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-});
-Question.hasMany(UserAnswer, {
-  targetKey: "question_id",
-  foreignKey: "question_id",
+  // user_id: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  // },
 });
 Question.hasMany(CorrectAnswer, {
   targetKey: "question_id",

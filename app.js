@@ -10,6 +10,7 @@ const app = express();
 
 const authRoutes = require('./routes/auth');
 const home = require('./routes/home');
+const admin = require('./routes/admin');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/auth', authRoutes);
 app.use('/', home);
+app.use('/admin', admin);
 
 
 const PORT = process.env.PORT || 8000

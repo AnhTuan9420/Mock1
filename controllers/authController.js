@@ -57,6 +57,7 @@ exports.Register = async (req, res) => {
 
 exports.Login = async (req, res) => {
     try {
+        // const { username, password } = data || req.body;
         const user = await User.findOne({
             where: {
                 username: req.body.username
@@ -69,49 +70,42 @@ exports.Login = async (req, res) => {
         if (!match){ 
             return res.status(400).json({ msg: "Wrong Password" });
         }
-        const userId = user.user_id;
-        const username = user.username;
-        const email = user.email;
-        const accessToken = jwt.sign({ userId, username, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '10m'
+        const accessToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: '30s'
         });
-        const refreshToken = jwt.sign({ userId, username, email }, process.env.REFRESH_TOKEN_SECRET, {
+        const refreshToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'
         });
-        // const userToken = await userToken.findAll({})
-        // await userToken.update({ data_token: refreshToken }, {
+        // const userToken = await UserToken.findAll({})
+        // await userToken.push({ data_token: refreshToken }, {
         //     where: {
-        //         id: userId
+        //         userToken: token_id
         //     }
         // });
-        // res.cookie('refreshToken', refreshToken, {
-        //     httpOnly: true,
-        //     maxAge: 24 * 60 * 60 * 1000
-        // });
-        res.json({ accessToken });
-        res.json({ refreshToken });
-        res.status(200).json({ msg: "Success!" });
+        // console.log(userToken);
+        // return ({ accessToken, refreshToken });
+        res.status(200).json({ msg: "Success!", accessToken, refreshToken });
     } catch (error) {
         res.status(404).json({ msg: "Error!" });
     }
 }
 
 exports.Logout = async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
+    const refreshToken = req.body.token;
     if (!refreshToken) return res.sendStatus(204);
-    const user = await User.findAll({
+    const userToken = await UserToken.findAll({
         where: {
-            refresh_token: refreshToken
+            data_token: refreshToken
         }
     });
-    if (!user[0]) return res.sendStatus(204);
-    const userId = user[0].id;
-    await User.update({ refresh_token: null }, {
+    if (!userToken) return res.sendStatus(204);
+    const token_id = userToken.id;
+    await UserToken.update({ data_token: null }, {
         where: {
-            id: userId
+            id: token_id
         }
     });
-    res.clearCookie('refreshToken');
+    // res.clearCookie('refreshToken');
     return res.sendStatus(200);
 }
 
