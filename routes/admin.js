@@ -1,7 +1,11 @@
 const express = require ("express");
-const api = require ("../controllers/adminController");
+const admin = require ("../controllers/adminController");
 const router = express.Router();
 
-router.post('/newQuestion', api.newQuestion);
+router.post('/newQuestion', admin.newQuestion);
+router.post('/correctAnswer', admin.newCorrectAnswer);
+router.post('/inCorrectAnswer', admin.newInCorrectAnswer);
+router.delete('/deleteQuestion', admin.deleteQuestion);
+router.get('/getDetailQuestion', admin.getDetailQuestion);
 
 module.exports = router;

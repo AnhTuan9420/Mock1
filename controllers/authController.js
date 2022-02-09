@@ -1,8 +1,8 @@
 const User = require("../models/userModel");
-const UserToken = require("../models/userToken_Model")
+const UserToken = require("../models/userToken_Model");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const { signToken, destroyToken, createUser } = require("../service/authService")
 dotenv.config();
 
 
@@ -19,7 +19,7 @@ exports.getUser = async (req, res) => {
 
 exports.Register = async (req, res) => {
     // data = {
-    //     'email': 'anhtuan@gmail.com',
+    //     'email': 'tuan@gmail.com',
     //     'username': "anhtuan",
     //     'password': 'anhtuan',
     //     'confPassword': 'anhtuan',
@@ -48,6 +48,8 @@ exports.Register = async (req, res) => {
                 phone: phone
             });
             console.log(newUser);
+            // const newUser = await createUser(usr);
+            // return res.json({msg: "Create User succses!!" , newUser})
         };
         res.status(200).json({ msg: "Register success!" });
     } catch (error) {
@@ -57,7 +59,6 @@ exports.Register = async (req, res) => {
 
 exports.Login = async (req, res) => {
     try {
-        // const { username, password } = data || req.body;
         const user = await User.findOne({
             where: {
                 username: req.body.username
@@ -70,36 +71,20 @@ exports.Login = async (req, res) => {
         if (!match){ 
             return res.status(400).json({ msg: "Wrong Password" });
         }
-        const accessToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '30s'
-        });
-        const refreshToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.REFRESH_TOKEN_SECRET, {
-            expiresIn: '1d'
-        });
+        const { accessToken, refreshToken } = await signToken(user);
         const newToken = await UserToken.create({data_token: refreshToken, user_id: user.user_id});
-        console.log(newToken);
-        res.status(200).json({ msg: "Success!", accessToken, refreshToken });
+        return res.status(200).json({ msg: "Success!", accessToken, refreshToken , newToken });
     } catch (error) {
         res.status(404).json({ msg: "Error!" });
     }
 }
 
 exports.Logout = async (req, res) => {
-    const refreshToken = req.body.token;
-    if (!refreshToken) return res.sendStatus(204);
-    const userToken = await UserToken.findAll({
-        where: {
-            data_token: refreshToken
-        }
-    });
-    if (!userToken) return res.sendStatus(204);
-    const token_id = userToken.id;
-    await UserToken.update({ data_token: null }, {
-        where: {
-            id: token_id
-        }
-    });
-    // res.clearCookie('refreshToken');
-    return res.sendStatus(200);
+    try {
+        const refreshToken = data || req.body;
+        const result = await destroyToken(refreshToken);
+        return res.status(200).json({ msg: "Success!", result});
+    } catch (error) {
+        console.log(error);
+    }
 }
-

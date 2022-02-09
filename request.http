@@ -2,13 +2,20 @@ POST http://localhost:8000/auth/login
 Content-type: application/json
 
 {
-    "username" : "anhtuan",
-    "password" : "anhtuan"
+    "username" : "hieuhieu",
+    "password" : "hieuhieu"
+}
+
+###
+GET http://localhost:8000/auth/logout
+Content-type: application/json
+{
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoiYW5odHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQzMzgxMjUsImV4cCI6MTY0NDMzODE1NX0.BFW5wDVhw9uSnga-VlN-d1zn_IqSgD_em6DS6fR89cI"
 }
 
 ###
 GET  http://localhost:8000/auth/user
-Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoiYW5odHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQzMDgzOTQsImV4cCI6MTY0NDMwODQyNH0.6zRX6TOUc_csccnTsycV3k2mWNbl9iioYHdFvfx7gaU
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoiYW5odHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQzMzc3NjEsImV4cCI6MTY0NDMzNzc5MX0.gMeO7aNkaJev9xrii3cs4vYAkinHf6sOHoogH9HOCq0
 
 
 ###

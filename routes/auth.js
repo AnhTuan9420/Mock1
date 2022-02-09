@@ -8,6 +8,6 @@ router.get('/user', verifyToken, auth.getUser);
 router.get('/register', auth.Register);
 router.post('/login', auth.Login);
 router.post('/token', refreshToken);
-router.delete('/logout', auth.Logout);
+router.get('/logout', auth.Logout);
 
 module.exports = router;

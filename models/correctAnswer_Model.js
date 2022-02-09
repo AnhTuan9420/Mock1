@@ -10,10 +10,10 @@ const CorrectAnswer = db.define("CorrectAnswer", {
     },
     content: {
         type: DataTypes.TEXT,
-        unique: {
-            args: true,
-            msg: "Answer already is use!!!",
-        },
+        // unique: {
+        //     args: true,
+        //     msg: "Answer already is use!!!",
+        // },
     },
     question_id: {
         type: DataTypes.INTEGER,
