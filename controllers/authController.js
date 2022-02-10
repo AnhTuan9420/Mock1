@@ -9,7 +9,7 @@ dotenv.config();
 exports.getUser = async (req, res) => {
     try {
         const user = await User.findAll({
-            attributes: ['user_id', 'username','fullname', 'email']
+            attributes: ['user_id', 'username','fullname','email','fullname','phone']
         });
         res.json(user);
     } catch (error) {
@@ -19,16 +19,14 @@ exports.getUser = async (req, res) => {
 
 exports.Register = async (req, res) => {
     // data = {
-    //     'email': 'tuan@gmail.com',
-    //     'username': "anhtuan",
-    //     'password': 'anhtuan',
-    //     'confPassword': 'anhtuan',
-    //     'fullname': 'anhtuan',
-    //     'phone': 99999999
+    //     "email": "tuan@gmail.com",
+    //     "username": "anhtuan",
+    //     "password": "anhtuan",
+    //     "confPassword": "anhtuan",
+    //     "fullname": "anhtuan",
+    //     "phone": 99999999
     // };
-    const { username, email, password, confPassword, fullname, phone } = data || req.body;
-    const salt = await bcrypt.genSalt();
-    const hashPassword = await bcrypt.hash(password, salt);
+    const { username, email, password, confPassword, fullname, phone } = req.body;
     try {
         const usr = await User.findOne({
             where: {
@@ -40,18 +38,9 @@ exports.Register = async (req, res) => {
         } else if (password !== confPassword) {
             return res.status(400).json({ msg: "Confirm Password Error!" });
         } else {
-            const newUser = await User.create({
-                username: username,
-                email: email,
-                password: hashPassword,
-                fullname: fullname,
-                phone: phone
-            });
-            console.log(newUser);
-            // const newUser = await createUser(usr);
-            // return res.json({msg: "Create User succses!!" , newUser})
+            const newUser = await createUser(username, email, password, fullname, phone);
+            res.status(200).json({ msg: "Register success!",newUser });
         };
-        res.status(200).json({ msg: "Register success!" });
     } catch (error) {
         console.log(error);
     };

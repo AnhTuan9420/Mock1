@@ -11,6 +11,7 @@ const app = express();
 const authRoutes = require('./routes/auth');
 const home = require('./routes/home');
 const admin = require('./routes/admin');
+const user = require('./routes/user');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use('/auth', authRoutes);
 app.use('/', home);
 app.use('/admin', admin);
+app.use('/user', user);
 
 
 const PORT = process.env.PORT || 8000

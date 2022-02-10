@@ -40,26 +40,21 @@ exports.destroyToken = async (val) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
-// exports.createUser = async (usr) => {
-//     const salt = await bcrypt.genSalt();
-//     const hashPassword = await bcrypt.hash(password, salt);
-//     try {
-//         // const usr = await User.findOne({
-//         //     where: {
-//         //         username: username
-//         //     }
-//         // });
-//         const newUser = await User.create({
-//             username: usr.username,
-//             email: usr.email,
-//             password: hashPassword,
-//             fullname: usr.fullname,
-//             phone: usr.phone
-//         });
-//         return newUser;
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+exports.createUser = async (username, email, password, fullname, phone) => {
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt);
+    try {
+        const newUser = await User.create({
+            username: username,
+            email: email,
+            password: hashPassword,
+            fullname: fullname,
+            phone: phone
+        });
+        return newUser;
+    } catch (error) {
+        console.log(error);
+    }
+};
