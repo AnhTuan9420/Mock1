@@ -1,6 +1,7 @@
 const Question = require("../models/questionsModel");
 const InCorrectAnswer = require("../models/incorrectAnswer_Model");
 const CorrectAnswer = require("../models/correctAnswer_Model");
+const User = require("../models/userModel");
 const { createQuestion, createCorrectAnswer, createInCorrectAnswer, deleteQ, detailQuestion,
         updateQ, deleteCA, deleteICA } = require("../service/adminService");
 
@@ -65,7 +66,7 @@ exports.deleteQuestion = async (req, res) => {
 }
 
 exports.getDetailQuestion = async (req, res) => {
-    const { id } = data || req.params;
+    const { id } = req.params;
     try {
         const getDetailQuestion = await detailQuestion(id);
         return res.json({ getDetailQuestion });
@@ -84,7 +85,16 @@ exports.updateQuestion = async (req, res) => {
     }
 };
 
-
+exports.getAllUser = async (req, res) => {
+    try {
+        const user = await User.findAll({
+            attributes: ['user_id', 'username','fullname','email','phone']
+        });
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 

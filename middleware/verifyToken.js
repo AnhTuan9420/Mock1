@@ -15,8 +15,7 @@ exports.verifyToken = (req, res, next) => {
         // console.log(err, decoded);
         next();
     })
-}
-
+};
 
 exports.refreshToken = async (req, res) => {
     try {
@@ -43,4 +42,4 @@ exports.refreshToken = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-}
+};

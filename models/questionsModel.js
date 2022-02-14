@@ -2,7 +2,6 @@ const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../config/database");
 const IncorrectAnswer = require("./incorrectAnswer_Model");
 const CorrectAnswer = require("./correctAnswer_Model");
-const UserAnswer = require("../models/userAnswer_Model")
 
 const Question = db.define("Question", {
   question_id: {

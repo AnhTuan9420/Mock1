@@ -1,7 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../config/database");
 const UserToken = require("../models/userToken_Model");
-const UserAnswer = require("../models/userAnswer_Model");
 const Score = require("../models/scoreModel");
 
 const User = db.define("User", {
@@ -36,10 +35,6 @@ const User = db.define("User", {
   }
 });
 User.hasMany(Score, {
-  targetKey: "user_id",
-  foreignKey: "user_id",
-});
-User.hasMany(UserAnswer, {
   targetKey: "user_id",
   foreignKey: "user_id",
 });

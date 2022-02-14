@@ -6,16 +6,16 @@ const { signToken, destroyToken, createUser } = require("../service/authService"
 dotenv.config();
 
 
-exports.getUser = async (req, res) => {
-    try {
-        const user = await User.findAll({
-            attributes: ['user_id', 'username','fullname','email','fullname','phone']
-        });
-        res.json(user);
-    } catch (error) {
-        console.log(error);
-    }
-}
+// exports.Signup = async (req, res) => {
+//     const user = await User.create({
+//       username: "admin",
+//       password: "admin",
+//       role: "admin",
+//     });
+//     await user.save();
+//     console.log(user);
+//     return res.json(user);
+// };
 
 exports.Register = async (req, res) => {
     // data = {
@@ -62,17 +62,17 @@ exports.Login = async (req, res) => {
         }
         const { accessToken, refreshToken } = await signToken(user);
         const newToken = await UserToken.create({data_token: refreshToken, user_id: user.user_id});
-        return res.status(200).json({ msg: "Success!", accessToken, refreshToken , newToken });
+        return res.status(200).json({ msg: "Success!", accessToken, refreshToken });
     } catch (error) {
         res.status(404).json({ msg: "Error!" });
     }
 }
 
 exports.Logout = async (req, res) => {
+    const { refreshToken } = req.body;
     try {
-        const refreshToken = data || req.body;
         const result = await destroyToken(refreshToken);
-        return res.status(200).json({ msg: "Success!", result});
+        return res.status(200).json({result});
     } catch (error) {
         console.log(error);
     }

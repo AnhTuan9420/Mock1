@@ -2,8 +2,8 @@ POST http://localhost:8000/auth/login
 Content-type: application/json
 
 {
-    "username" : "hieuhieu",
-    "password" : "hieuhieu"
+    "username" : "anhtuan",
+    "password" : "anhtuan"
 }
 
 ###
