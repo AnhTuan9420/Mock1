@@ -11,7 +11,7 @@ exports.signToken = async (user) => {
     try {
         // sign token
         const accessToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '30s'
+            expiresIn: '1m'
         });
         const refreshToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'

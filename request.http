@@ -10,11 +10,11 @@ Content-type: application/json
 GET http://localhost:8000/auth/logout
 Content-type: application/json
 {
-    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoiYW5odHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQzMzgxMjUsImV4cCI6MTY0NDMzODE1NX0.BFW5wDVhw9uSnga-VlN-d1zn_IqSgD_em6DS6fR89cI"
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoidHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQ5MzE3NjcsImV4cCI6MTY0NTAxODE2N30.YVDNSj9wYQGkbE4bWrj3zzF3m6KFwmBY7qyfVIgh3ns"
 }
 
 ###
-GET  http://localhost:8000/auth/user
+GET  http://localhost:8000/user/getRandomQuestions
 Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoiYW5odHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQzMzc3NjEsImV4cCI6MTY0NDMzNzc5MX0.gMeO7aNkaJev9xrii3cs4vYAkinHf6sOHoogH9HOCq0
 
 
@@ -27,9 +27,9 @@ content-type: application/json
 }
 
 ###
-POST   http://localhost:8000/auth/token
+POST   http://localhost:8000/user/token
 content-type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoiYW5odHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQzMDg0NzMsImV4cCI6MTY0NDM5NDg3M30.65Fd6BMwCXmZD-jpkccwmuoVm184pwrogzvuVHjDo2A"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiYW5odHVhbiIsImVtYWlsIjoidHVhbkBnbWFpbC5jb20iLCJpYXQiOjE2NDQ5MzE3NjcsImV4cCI6MTY0NTAxODE2N30.YVDNSj9wYQGkbE4bWrj3zzF3m6KFwmBY7qyfVIgh3ns"
 }

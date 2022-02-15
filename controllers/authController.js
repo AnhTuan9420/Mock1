@@ -2,7 +2,7 @@ const User = require("../models/userModel");
 const UserToken = require("../models/userToken_Model");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
-const { signToken, destroyToken, createUser } = require("../service/authService")
+const { signToken, destroyToken, createUser } = require("../service/authService");
 dotenv.config();
 
 

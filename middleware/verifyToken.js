@@ -17,29 +17,3 @@ exports.verifyToken = (req, res, next) => {
     })
 };
 
-exports.refreshToken = async (req, res) => {
-    try {
-        const refreshToken = req.body.token;
-        if (!refreshToken) return res.sendStatus(401);
-        // const userToken = await UserToken.findOne({
-        //     where: {
-        //         data_token
-        //     }
-        // });
-        const user = await User.findOne({
-            where: {
-                username: req.body.username
-            }
-        });
-        if (!user) return res.sendStatus(403);
-        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-            if (err) return res.sendStatus(403);
-            const accessToken = jwt.sign({ userId: user.id, username: user.username, email: user.email }, process.env.ACCESS_TOKEN_SECRET, {
-                expiresIn: '1d'
-            });
-            res.json({ accessToken });
-        });
-    } catch (error) {
-        console.log(error);
-    }
-};
