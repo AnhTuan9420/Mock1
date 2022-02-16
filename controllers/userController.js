@@ -37,7 +37,7 @@ exports.getRandomQuestions = async (req, res) => {
 exports.submitQuestion = async (req, res) => {
     const { answers } = req.body;
     const correct = [];
-    const id = 2;
+    const { id } = req.params;
     try {
         const user = await User.findOne({
             where: {
@@ -124,3 +124,24 @@ exports.refreshToken = async (req, res) => {
         console.log(error);
     }
 };
+
+exports.updateProfile = async (req, res) => {
+    const { email, fullname, phone } = req.body;
+    const { id } = req.params;
+    try {
+        const updateInfo = await User.update({
+            email: email,
+            fullname: fullname,
+            phone: phone
+        }, {
+            where: {
+                user_id: id
+            }
+        });
+        return res.status(200).json({ msg: "Update Profile success!!", updateInfo });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
