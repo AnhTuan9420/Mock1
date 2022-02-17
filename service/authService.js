@@ -10,10 +10,10 @@ dotenv.config();
 exports.signToken = async (user) => {
     try {
         // sign token
-        const accessToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.ACCESS_TOKEN_SECRET, {
+        const accessToken = jwt.sign({ user_id: user.user_id, username: user.username, role: user.role }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: '1m'
         });
-        const refreshToken = jwt.sign({ userId: user.user_id, username: user.username, email: user.email }, process.env.REFRESH_TOKEN_SECRET, {
+        const refreshToken = jwt.sign({ user_id: user.user_id, username: user.username, role: user.role }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'
         });
         return { accessToken, refreshToken };

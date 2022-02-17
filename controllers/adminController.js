@@ -1,6 +1,3 @@
-const Question = require("../models/questionsModel");
-const InCorrectAnswer = require("../models/incorrectAnswer_Model");
-const CorrectAnswer = require("../models/correctAnswer_Model");
 const User = require("../models/userModel");
 const { createQuestion, createCorrectAnswer, createInCorrectAnswer, deleteQ, detailQuestion,
         updateQ, deleteCA, deleteICA } = require("../service/adminService");
@@ -9,11 +6,11 @@ exports.newQuestion = async (req, res) => {
     const { content } = req.body;
     try {
         const Question = await createQuestion(content);
-        return res.json({ msg: "Create question Success!", Question })
+        return res.status(200).json({ msg: "Create question Success!", Question })
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 exports.newCorrectAnswer = async (req, res) => {
     const { content, question_id } = req.body;
@@ -63,13 +60,13 @@ exports.deleteQuestion = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 exports.getDetailQuestion = async (req, res) => {
     const { id } = req.params;
     try {
         const getDetailQuestion = await detailQuestion(id);
-        return res.json({ getDetailQuestion });
+        return res.status(200).json({ msg: "Get Detail Question Success!!", getDetailQuestion });
     } catch (error) {
         console.log(error);
     }
@@ -90,11 +87,11 @@ exports.getAllUser = async (req, res) => {
         const user = await User.findAll({
             attributes: ['user_id', 'username','fullname','email','phone']
         });
-        res.json(user);
+        return res.status(200).json({ msg: "Get All User Success!!", user });
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 
 

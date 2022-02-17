@@ -5,27 +5,7 @@ const dotenv = require("dotenv");
 const { signToken, destroyToken, createUser } = require("../service/authService");
 dotenv.config();
 
-
-// exports.Signup = async (req, res) => {
-//     const user = await User.create({
-//       username: "admin",
-//       password: "admin",
-//       role: "admin",
-//     });
-//     await user.save();
-//     console.log(user);
-//     return res.json(user);
-// };
-
 exports.Register = async (req, res) => {
-    // data = {
-    //     "email": "tuan@gmail.com",
-    //     "username": "anhtuan",
-    //     "password": "anhtuan",
-    //     "confPassword": "anhtuan",
-    //     "fullname": "anhtuan",
-    //     "phone": 99999999
-    // };
     const { username, email, password, confPassword, fullname, phone } = req.body;
     try {
         const usr = await User.findOne({
@@ -39,12 +19,12 @@ exports.Register = async (req, res) => {
             return res.status(400).json({ msg: "Confirm Password Error!" });
         } else {
             const newUser = await createUser(username, email, password, fullname, phone);
-            res.status(200).json({ msg: "Register success!",newUser });
+            res.status(200).json({ msg: "Register success!", newUser });
         };
     } catch (error) {
         console.log(error);
     };
-}
+};
 
 exports.Login = async (req, res) => {
     try {
@@ -66,14 +46,14 @@ exports.Login = async (req, res) => {
     } catch (error) {
         res.status(404).json({ msg: "Error!" });
     }
-}
+};
 
 exports.Logout = async (req, res) => {
     const { refreshToken } = req.body;
     try {
         const result = await destroyToken(refreshToken);
-        return res.status(200).json({result});
+        return res.status(200).json({ msg: "Success!", result});
     } catch (error) {
         console.log(error);
     }
-}
+};
